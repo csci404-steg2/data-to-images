@@ -8,9 +8,10 @@ __email__ = "dylan.martie@ndsu.edu, tate.price@ndsu.edu"
 __status__ = "Production"
 
 # required packages:
-# treepoem 3.9.0
 # ghostscript 0.7
 # pillow 8.2.0
+# pylibdmtx 0.1.9
+# treepoem 3.9.0
 
 import os
 import string
@@ -19,12 +20,12 @@ from PIL import Image
 from pylibdmtx.pylibdmtx import decode
 import treepoem
 
+# changing working direcotry to work with Tate's system
+os.chdir("/Users/tateprice 1/Desktop/CSCI 404/steg")
+
 # @parameter p: textFile .txt
 # @returns: imageFile .png
 def createDataMatrix():
-
-    # changing working direcotry to work with Tate's system
-    os.chdir("/Users/tateprice 1/Desktop/CSCI 404/steg")
 
     # reading contents of text file
     textFile = open("./sample.txt", "r")
@@ -54,10 +55,15 @@ def createDataMatrix():
 
 
 def readDataMatrix():
-   for i in range(0, len(textFileContentList)):
-   decode(Image.open('./matricies/matrix' + str(i) + '.png'))
-    
-    print(decode(Image.open('./matricies/matrix0.png')))
 
-createDataMatrix()
+    #counting number of *.* in ./matricies. Would like to change to *.png
+    path, dirs, files = next(os.walk("./matricies"))
+    fileCount = len(files)
+    
+    for i in range(0, (fileCount-1)):
+        print(decode(Image.open('./matricies/matrix' + str(i) + '.png')))
+
+        
+
+# createDataMatrix()
 readDataMatrix()
