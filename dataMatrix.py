@@ -4,6 +4,7 @@ import PIL
 from PIL import Image
 from pylibdmtx.pylibdmtx import encode
 from pylibdmtx.pylibdmtx import decode
+import treepoem
 
 def createDataMatrix():
     
@@ -15,35 +16,27 @@ def createDataMatrix():
     splitLength = 40    # number split every n characters
     textFileContentList = [textFileContent[i:i+splitLength] for i in range(0, len(textFileContent), splitLength)]
     textFile.close()
-    
-    encoded = encode('hello world')
-    img = Image.frombytes('RGB', (encoded.width, encoded.height), encoded.pixels)
-    img.save('./matricies/dmtx.png')
-    
-#    for i in range(0, len(textFileContentList)):
-#        encoded = encode(textFileContentList[i])
-        
-        
-#        img = Image.frombytes('RGB', (encoded.width, encoded.height), encoded.pixels)
-#        img = img.convert("RGBA")
-
-#        datas = img.getdata()
-#
-#        newData = []
-#        for item in datas:
-#            if item[0] == 255 and item[1] == 255 and item[2] == 255:
-#                newData.append((255, 255, 255, 0))
-#            else:
-#                newData.append(item)
+      
+    for i in range(0, len(textFileContentList)):              
+        img = treepoem.generate_barcode(barcode_type='datamatrix', data=textFileContentList[i],)
+        img = img.convert("RGBA")
+        datas = img.getdata()
+        newData = []
+        for item in datas:
+            if item[0] == 255 and item[1] == 255 and item[2] == 255:
+                newData.append((255, 255, 255, 0))
+            else:
+                newData.append(item)
                 
-#        img.putdata(newData)
-#        img.save('./matricies/matrix' + str(i) + '.png')
+        img.putdata(newData)
+        img.save('./matricies/matrix' + str(i) + '.png')
+
 
 def readDataMatrix():
 #    for i in range(0, len(textFileContentList)):
 #    decode(Image.open('./matricies/matrix' + str(i) + '.png'))
     
-    print(decode(Image.open('./matricies/dmtx.png')))
+    print(decode(Image.open('./matricies/dmtx2.png')))
 
 createDataMatrix()
-readDataMatrix()
+#readDataMatrix()
