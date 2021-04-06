@@ -3,7 +3,7 @@ __copyright__ = "Copyright 2021, Dylan Martie & Tate Price"
 __credits__ = ["Jack Hance, Benjamin Harvey, Dylan Martie, James Palmer, Tate Price"]
 __license__ = "GPL"
 __version__ = "0.1"
-__maintainer__ = "Dylan Harvey, Tate Price"
+__maintainer__ = "Dylan Martie, Tate Price"
 __email__ = "dylan.martie@ndsu.edu, tate.price@ndsu.edu"
 __status__ = "Production"
 
@@ -54,8 +54,8 @@ def createDataMatrix():
 
 
 def readDataMatrix():
-#    for i in range(0, len(textFileContentList)):
-#    decode(Image.open('./matricies/matrix' + str(i) + '.png'))
+   for i in range(0, len(textFileContentList)):
+   decode(Image.open('./matricies/matrix' + str(i) + '.png'))
     
     print(decode(Image.open('./matricies/matrix0.png')))
 
