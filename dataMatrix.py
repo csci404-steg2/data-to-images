@@ -11,6 +11,7 @@ __status__ = "Production"
 # ghostscript 0.7
 # pillow 8.2.0
 # pylibdmtx 0.1.9
+# rope-0.19.0
 # treepoem 3.9.0
 
 import os
@@ -25,13 +26,16 @@ os.chdir("/Users/tateprice 1/Desktop/CSCI 404/steg")
 
 # @parameter p: textFile .txt
 # @returns: imageFile .png
+
+splitLength = 40    # number split every n characters
+
 def createDataMatrix():
 
     # reading contents of text file
     textFile = open("./sample.txt", "r")
     textFileContent = textFile.read()
 
-    splitLength = 40    # number split every n characters
+    
     textFileContentList = [textFileContent[i:i+splitLength] for i in range(0, len(textFileContent), splitLength)]
     textFile.close()
       
@@ -56,14 +60,23 @@ def createDataMatrix():
 
 def readDataMatrix():
 
-    #counting number of *.* in ./matrices. Would like to change to *.png
     path, dirs, files = next(os.walk("./matrices"))
     fileCount = len(files)
     
-    for i in range(0, (fileCount-1)):
-        print(decode(Image.open('./matrices/matrix' + str(i) + '.png')))
+    file = open("./DecodedText.txt", "w")
+    finalString = ""
+    for i in range(0, (fileCount-2)):
+        decodeString = str(decode(Image.open('./matrices/matrix' + str(i) + '.png')))
+        decodeString = decodeString.replace('\\n', '\n')
+        finalString += decodeString[16:(16 + splitLength)]
+    
+    # Special case for last matrix
+    decodeString = str(decode(Image.open('./matrices/matrix' + str(fileCount-2) + '.png')))
+    decodeString = decodeString.replace('\\n', '\n')
+    finalString += decodeString[16:len(decodeString)-50]
 
-        
+    file.write(finalString)
+    file.close()
 
-# createDataMatrix()
+#createDataMatrix()
 readDataMatrix()
