@@ -51,17 +51,17 @@ def createDataMatrix():
 
         # saving image to file       
         img.putdata(newData)
-        img.save('./matrcies/matrix' + str(i) + '.png')
+        img.save('./matrices/matrix' + str(i) + '.png')
 
 
 def readDataMatrix():
 
-    #counting number of *.* in ./matrcies. Would like to change to *.png
-    path, dirs, files = next(os.walk("./matrcies"))
+    #counting number of *.* in ./matrices. Would like to change to *.png
+    path, dirs, files = next(os.walk("./matrices"))
     fileCount = len(files)
     
     for i in range(0, (fileCount-1)):
-        print(decode(Image.open('./matrcies/matrix' + str(i) + '.png')))
+        print(decode(Image.open('./matrices/matrix' + str(i) + '.png')))
 
         
 
